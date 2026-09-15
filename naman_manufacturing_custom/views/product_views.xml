@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.naman</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page name="foil_manufacturing_details" string="Foil Specs">
+                    <group>
+                        <group string="Packaging &amp; Weight Config">
+                            <field name="x_under_group"/>
+                            <field name="uom_id" string="Unit of Measure"/>
+                            <field name="x_brand"/>
+                            <field name="x_matl_core"/>
+                            <field name="x_micron"/>
+                            <field name="x_qtty_box"/>
+                        </group>
+                        <group string="Physical Details">
+                            <field name="x_matl_wt"/>
+                            <field name="x_core_wt"/>
+                            <field name="x_gr_wgt"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extend Product Template Search View to allow quick filtering and grouping by Under Group -->
+    <record id="product_template_search_view_inherit_naman" model="ir.ui.view">
+        <field name="name">product.template.search.inherit.naman</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="x_under_group" string="Under Group"/>
+            </xpath>
+            <xpath expr="//filter[@name='goods']" position="before">
+                <filter string="Finished Goods" name="filter_finished_goods" domain="[('x_under_group', '=', 'finished_goods')]"/>
+                <filter string="Raw Material" name="filter_raw_material" domain="[('x_under_group', '=', 'raw_material')]"/>
+                <filter string="Packaging Products" name="filter_packaging_products" domain="[('x_under_group', '=', 'packaging_products')]"/>
+                <separator/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Under Group" name="group_by_under_group" context="{'group_by': 'x_under_group'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extend Product Template Tree View to include Under Group so they are visible and exportable -->
+    <record id="product_template_tree_view_inherit_naman" model="ir.ui.view">
+        <field name="name">product.template.tree.inherit.naman</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <field name="x_under_group" optional="show"/>
+                <field name="x_brand" optional="show"/>
+                <field name="x_matl_core" optional="show"/>
+                <field name="x_micron" optional="show"/>
+                <field name="x_qtty_box" optional="show"/>
+                <field name="x_matl_wt" optional="show"/>
+                <field name="x_core_wt" optional="show"/>
+                <field name="x_gr_wgt" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Extend Product Product Variant Tree View to include Under Group -->
+    <record id="product_product_tree_view_inherit_naman" model="ir.ui.view">
+        <field name="name">product.product.tree.inherit.naman</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <field name="x_under_group" optional="show"/>
+                <field name="x_brand" optional="show"/>
+                <field name="x_matl_core" optional="show"/>
+                <field name="x_micron" optional="show"/>
+                <field name="x_qtty_box" optional="show"/>
+                <field name="x_matl_wt" optional="show"/>
+                <field name="x_core_wt" optional="show"/>
+                <field name="x_gr_wgt" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

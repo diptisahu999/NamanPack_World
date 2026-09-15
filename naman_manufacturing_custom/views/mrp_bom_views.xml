@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit BoM Form View -->
+    <record id="mrp_bom_form_view_inherit_naman" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.naman</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//group[1]" position="after">
+                <group string="Foil Specifications">
+                    <group string="Packaging &amp; Weight Config">
+                        <field name="x_under_group"/>
+                        <field name="x_brand"/>
+                        <field name="x_matl_core"/>
+                        <field name="x_micron"/>
+                        <field name="x_qtty_box"/>
+                    </group>
+                    <group string="Physical Details">
+                        <field name="x_matl_wt"/>
+                        <field name="x_core_wt"/>
+                        <field name="x_gr_wgt"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='bom_line_ids']//list//field[@name='product_qty']" position="after">
+                <field name="product_uom_id" string="Unit of Measure" optional="show"/>
+                <field name="x_under_group" optional="show"/>
+                <field name="x_brand" optional="show"/>
+                <field name="x_matl_core" optional="show"/>
+                <field name="x_micron" optional="show"/>
+                <field name="x_qtty_box" optional="show"/>
+                <field name="x_matl_wt" optional="show"/>
+                <field name="x_core_wt" optional="show"/>
+                <field name="x_gr_wgt" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit BoM Tree / List View so columns display in List & Export -->
+    <record id="mrp_bom_tree_view_inherit_naman" model="ir.ui.view">
+        <field name="name">mrp.bom.tree.inherit.naman</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <field name="x_under_group" optional="show"/>
+                <field name="x_brand" optional="show"/>
+                <field name="x_matl_core" optional="show"/>
+                <field name="x_micron" optional="show"/>
+                <field name="x_qtty_box" optional="show"/>
+                <field name="x_matl_wt" optional="show"/>
+                <field name="x_core_wt" optional="show"/>
+                <field name="x_gr_wgt" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Dedicated BoM Component Lines List View (1 row per component for direct multi-line export) -->
+    <record id="mrp_bom_line_tree_view_custom" model="ir.ui.view">
+        <field name="name">mrp.bom.line.list.custom</field>
+        <field name="model">mrp.bom.line</field>
+        <field name="arch" type="xml">
+            <list string="BoM Components" sample="1">
+                <field name="x_finished_product"/>
+                <field name="bom_id" string="Bill of Material"/>
+                <field name="product_id" string="Component"/>
+                <field name="x_under_group" string="Component Group" optional="show"/>
+                <field name="product_qty" string="Quantity"/>
+                <field name="product_uom_id" string="Unit of Measure"/>
+                <field name="x_brand" optional="show"/>
+                <field name="x_matl_core" optional="show"/>
+                <field name="x_micron" optional="show"/>
+                <field name="x_qtty_box" optional="show"/>
+                <field name="x_matl_wt" optional="show"/>
+                <field name="x_core_wt" optional="show"/>
+                <field name="x_gr_wgt" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Window Action for BoM Components -->
+    <record id="action_mrp_bom_line_custom" model="ir.actions.act_window">
+        <field name="name">BoM Components</field>
+        <field name="res_model">mrp.bom.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="mrp_bom_line_tree_view_custom"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View all component lines across all Bills of Materials.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menuitem under Manufacturing -> Products -> BoM Components -->
+    <menuitem id="menu_mrp_bom_line_custom"
+              name="BoM Components"
+              parent="mrp.menu_mrp_bom"
+              action="action_mrp_bom_line_custom"
+              sequence="15"/>
+</odoo>

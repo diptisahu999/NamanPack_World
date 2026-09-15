@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_view_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.form.view.inherit.naman</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_extra_info']" position="inside">
+                <group string="Shift &amp; Machine Run">
+                    <field name="x_under_group"/>
+                    <field name="x_operator"/>
+                    <field name="x_machine"/>
+                    <field name="x_brand"/>
+                </group>
+                <group string="Foil Specifications Log">
+                    <field name="x_matl_core"/>
+                    <field name="x_micron"/>
+                    <field name="x_qtty_box"/>
+                    <field name="x_matl_wt"/>
+                    <field name="x_core_wt"/>
+                    <field name="x_gr_wgt"/>
+                </group>
+                <group string="Total Production Output Weights">
+                    <field name="x_total_net_wt"/>
+                    <field name="x_total_core_wt"/>
+                    <field name="x_total_gross_wt"/>
+                    <field name="x_scrap_loss_wt"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit MO Tree / List View so columns display in List & Export -->
+    <record id="mrp_production_tree_view_inherit_naman" model="ir.ui.view">
+        <field name="name">mrp.production.tree.inherit.naman</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <field name="x_under_group" optional="show"/>
+                <field name="x_operator" optional="show"/>
+                <field name="x_machine" optional="show"/>
+                <field name="x_brand" optional="show"/>
+                <field name="x_micron" optional="show"/>
+                <field name="x_matl_wt" optional="show"/>
+                <field name="x_core_wt" optional="show"/>
+                <field name="x_gr_wgt" optional="show"/>
+                <field name="x_total_net_wt" optional="show"/>
+                <field name="x_total_gross_wt" optional="show"/>
+                <field name="x_scrap_loss_wt" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
