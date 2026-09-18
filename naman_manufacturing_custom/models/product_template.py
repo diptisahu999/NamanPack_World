@@ -7,7 +7,13 @@ class ProductTemplate(models.Model):
         ('finished_goods', 'Finished Goods'),
         ('raw_material', 'Raw Material'),
         ('packaging_products', 'Packaging Products'),
-    ], string='Under Group', help="Categorize product as Finished Goods, Raw Material, or Packaging Products")
+        ('pvc_cling_film', 'PVC Cling Film'),
+        ('export_items', 'Export Items'),
+        ('aluminium_foil', 'Aluminium Foil'),
+        ('bopp_tape', 'BOPP Tape'),
+        ('tissue_paper', 'Tissue Paper'),
+        ('disposables', 'Disposables'),
+    ], string='Under Group', help="Categorize product under specific business groups")
 
     x_brand = fields.Char(string='Brand', help="E.g., Naman, My Foil, Home One, Freshwrap")
     x_matl_core = fields.Char(string='Material + Core Details', help="E.g., 900 + 100")
